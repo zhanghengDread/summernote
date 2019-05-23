@@ -18,6 +18,7 @@ class Editor extends Field
 
     public function render()
     {
+        $uploadUrl = Summernote1::config('image_upload_url', '/api/summernote_upload_image');
         $name = $this->formatName($this->column);
 
         $config = (array)Summernote1::config('config');
@@ -56,7 +57,7 @@ class Editor extends Field
             $.ajax({
                 data: data,
                 type: "POST",
-                url: "/api/upload_image",
+                url: ""{$uploadUrl}"",
                 cache: false,
                 contentType: false,
                 processData: false,
