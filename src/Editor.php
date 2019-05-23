@@ -57,7 +57,7 @@ class Editor extends Field
             $.ajax({
                 data: data,
                 type: "POST",
-                url: ""{$uploadUrl}"",
+                url: "{$uploadUrl}",
                 cache: false,
                 contentType: false,
                 processData: false,
