@@ -1,9 +1,9 @@
 {
-    "name": "laravel-admin-ext/summernote",
-    "description": "Summernote extension for laravel-admin",
+    "name": "zhanghengDread/summernote",
+    "description": "Summernote extension for laravel-admin ext",
     "type": "library",
     "keywords": ["laravel-admin", "extension", "editor"],
-    "homepage": "https://github.com/laravel-admin-ext/summernote",
+    "homepage": "https://github.com/zhanghengDread/summernote",
     "license": "MIT",
     "authors": [
         {
@@ -20,13 +20,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Encore\\Summernote\\": "src/"
+            "ZhanghengDread\\Summernote\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Encore\\Summernote\\SummernoteServiceProvider"
+                "ZhanghengDread\\Summernote\\SummernoteServiceProvider"
             ]
 
         }

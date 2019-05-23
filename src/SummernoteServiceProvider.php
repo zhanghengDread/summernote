@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Summernote;
+namespace ZhanghengDread\Summernote;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Form;
@@ -11,9 +11,9 @@ class SummernoteServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot(Summernote $extension)
+    public function boot(Summernote1 $extension)
     {
-        if (! Summernote::boot()) {
+        if (! Summernote1::boot()) {
             return ;
         }
 
@@ -29,12 +29,12 @@ class SummernoteServiceProvider extends ServiceProvider
         }
 
         Admin::booting(function () {
-            $name = Summernote::config('field_name', 'summernote');
+            $name = Summernote1::config('field_name', 'summernote1');
             Form::extend($name, Editor::class);
         });
 
         Admin::booted(function () {
-            if ($lang = Summernote::config('config.lang')) {
+            if ($lang = Summernote1::config('config.lang')) {
                 Admin::js("vendor/laravel-admin-ext/summernote/dist/lang/summernote-{$lang}.js");
             }
         });

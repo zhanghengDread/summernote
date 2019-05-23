@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Summernote;
+namespace ZhanghengDread\Summernote;
 
 use Encore\Admin\Form\Field;
 
@@ -20,22 +20,66 @@ class Editor extends Field
     {
         $name = $this->formatName($this->column);
 
-        $config = (array) Summernote::config('config');
+        $config = (array)Summernote1::config('config');
 
         $config = json_encode(array_merge([
             'height' => 300,
         ], $config));
 
+
         $this->script = <<<EOT
+        var config = $config;
+        console.log(config)
+        
+        config.callbacks = {
+            onImageUpload: function(files) {
+                console.log(files)
+                var file = files[0];
+                sendFile(file, file.name);
+                }
+        };
+        
+        var editor = $('#{$this->id}');
 
-$('#{$this->id}').summernote($config);
+        editor.summernote(config);
 
-$('#{$this->id}').on("summernote.change", function (e) {
-    var html = $('#{$this->id}').summernote('code');
-    $('input[name="{$name}"]').val(html);
-});
+        editor.on("summernote.change", function (e) {
+            var html = $('#{$this->id}').summernote('code');
+            $('input[name=$name]').val(html);
+        });
+
+
+
+        function sendFile(file, filename) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/api/upload_image",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                console.log(url)
+                editor.summernote('insertImage', url, filename);
+                }
+            });
+        }
 
 EOT;
-        return parent::render();
+
+        return static::parentRender();
+    }
+
+    protected function parentRender()
+    {
+        if (!$this->shouldRender()) {
+            return '';
+        }
+
+        \Admin::script($this->script);
+
+        return view($this->getView(), $this->variables());
     }
 }
